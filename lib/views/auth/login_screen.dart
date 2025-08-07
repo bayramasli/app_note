@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../controllers/auth_controller.dart';
-import 'register_screen.dart';
-import 'reset_password_screen.dart';
+import 'package:note_app/controllers/auth_controller.dart';
+import 'package:note_app/views/auth/register_screen.dart';
+import 'package:note_app/views/auth/reset_password_screen.dart';
+import 'package:note_app/views/notes/note_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,19 +24,31 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> handleLogin() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await controller.login(emailController.text, passwordController.text);
-        if (!mounted) return;
+        final user = await controller.login(
+          emailController.text,
+          passwordController.text,
+        );
 
-        setState(() => errorText = null);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Giriş başarılı')));
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setInt('userId', user.id!);
 
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+        if (mounted) {
+          setState(() => errorText = null);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Giriş başarılı')),
+          );
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (_) => NoteScreen(userId: user.id!),
+            ),
+          );
+        }
       } catch (e) {
-        if (!mounted) return;
-
-        setState(() => errorText = e.toString());
+        if (mounted) {
+          setState(() => errorText = e.toString());
+        }
       }
     }
   }
@@ -90,7 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const RegisterScreen()),
+                    MaterialPageRoute(
+                      builder: (_) => const RegisterScreen(),
+                    ),
                   );
                 },
                 child: const Text('Hesabınız yok mu? Kayıt olun'),

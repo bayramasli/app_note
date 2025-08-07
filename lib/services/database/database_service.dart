@@ -36,7 +36,8 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         fullName TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL
+        password TEXT NOT NULL,
+        phone TEXT NOT NULL
       )
     ''');
 
@@ -56,6 +57,9 @@ class DatabaseHelper {
 
   /// Veritabanı versiyonu artarsa çalışır
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 3) {
+      await db.execute('ALTER TABLE users ADD COLUMN phone TEXT NOT NULL DEFAULT ""');
+    }
     if (oldVersion < 2) {
       await db.execute('''
         CREATE TABLE notes(
@@ -89,6 +93,17 @@ class DatabaseHelper {
       return UserModel.fromMap(result.first);
     }
     return null;
+  }
+
+  /// Kullanıcı şifresini günceller
+  Future<int> updateUserPassword(String email, String newPassword) async {
+    final db = await database;
+    return await db.update(
+      'users',
+      {'password': newPassword},
+      where: 'email = ?',
+      whereArgs: [email],
+    );
   }
 
   // -------------------------- NOT İŞLEMLERİ --------------------------

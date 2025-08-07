@@ -27,9 +27,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (_formKey.currentState!.validate()) {
       try {
         await controller.register(
-          nameController.text.trim(), // 1. parametre: fullName
-          emailController.text.trim(), // 2. parametre: email
-          passwordController.text, // 3. parametre: password
+          nameController.text.trim(),
+          emailController.text.trim(),
+          passwordController.text,
+          phoneController.text.trim(),
         );
         if (!mounted) return;
 

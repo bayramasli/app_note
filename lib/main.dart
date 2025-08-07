@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'views/auth/login_screen.dart';
-import 'views/home/note_home_screen.dart';
+import 'views/notes/note_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

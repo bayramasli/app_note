@@ -16,6 +16,8 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 
+
+
 ```
 note_app
 ├─ .metadata
@@ -218,8 +220,7 @@ note_app
 │  │  ├─ friends
 │  │  │  └─ friends_screen.dart
 │  │  ├─ home
-│  │  │  ├─ drawer_menu_widget.dart
-│  │  │  └─ note_home_screen.dart
+│  │  │  └─ drawer_menu_widget.dart
 │  │  ├─ map
 │  │  │  └─ map_screen.dart
 │  │  ├─ mindmap
@@ -252,41 +253,566 @@ note_app
 │  │  ├─ CMakeLists.txt
 │  │  ├─ ephemeral
 │  │  │  └─ .plugin_symlinks
-│  │  │     ├─ flutter_local_notifications_linux
-│  │  │     │  ├─ CHANGELOG.md
-│  │  │     │  ├─ lib
-│  │  │     │  │  ├─ flutter_local_notifications_linux.dart
+│  │  │     ├─ file_picker
+│  │  │     │  ├─ analysis_options.yaml
+│  │  │     │  ├─ android
+│  │  │     │  │  ├─ build.gradle
+│  │  │     │  │  ├─ gradle
+│  │  │     │  │  │  └─ wrapper
+│  │  │     │  │  │     └─ gradle-wrapper.properties
+│  │  │     │  │  ├─ gradle.properties
+│  │  │     │  │  ├─ proguard-rules.pro
+│  │  │     │  │  ├─ settings.gradle
 │  │  │     │  │  └─ src
-│  │  │     │  │     ├─ dbus_wrapper.dart
-│  │  │     │  │     ├─ file_system.dart
-│  │  │     │  │     ├─ flutter_local_notifications.dart
-│  │  │     │  │     ├─ flutter_local_notifications_platform_linux.dart
-│  │  │     │  │     ├─ flutter_local_notifications_stub.dart
-│  │  │     │  │     ├─ helpers.dart
-│  │  │     │  │     ├─ model
-│  │  │     │  │     │  ├─ capabilities.dart
-│  │  │     │  │     │  ├─ enums.dart
-│  │  │     │  │     │  ├─ hint.dart
-│  │  │     │  │     │  ├─ icon.dart
-│  │  │     │  │     │  ├─ initialization_settings.dart
-│  │  │     │  │     │  ├─ location.dart
-│  │  │     │  │     │  ├─ notification_details.dart
-│  │  │     │  │     │  ├─ sound.dart
-│  │  │     │  │     │  └─ timeout.dart
-│  │  │     │  │     ├─ notifications_manager.dart
-│  │  │     │  │     ├─ notification_info.dart
-│  │  │     │  │     ├─ platform_info.dart
-│  │  │     │  │     ├─ posix.dart
-│  │  │     │  │     └─ storage.dart
+│  │  │     │  │     └─ main
+│  │  │     │  │        ├─ AndroidManifest.xml
+│  │  │     │  │        └─ kotlin
+│  │  │     │  │           └─ com
+│  │  │     │  │              └─ mr
+│  │  │     │  │                 └─ flutter
+│  │  │     │  │                    └─ plugin
+│  │  │     │  │                       └─ filepicker
+│  │  │     │  │                          ├─ FileInfo.kt
+│  │  │     │  │                          ├─ FilePickerDelegate.kt
+│  │  │     │  │                          ├─ FilePickerPlugin.kt
+│  │  │     │  │                          ├─ FileUtils.kt
+│  │  │     │  │                          └─ MethodResultWrapper.kt
+│  │  │     │  ├─ CHANGELOG.md
+│  │  │     │  ├─ CONTRIBUTING.md
+│  │  │     │  ├─ example
+│  │  │     │  │  ├─ analysis_options.yaml
+│  │  │     │  │  ├─ android
+│  │  │     │  │  │  ├─ app
+│  │  │     │  │  │  │  ├─ build.gradle
+│  │  │     │  │  │  │  └─ src
+│  │  │     │  │  │  │     ├─ debug
+│  │  │     │  │  │  │     │  └─ AndroidManifest.xml
+│  │  │     │  │  │  │     ├─ main
+│  │  │     │  │  │  │     │  ├─ AndroidManifest.xml
+│  │  │     │  │  │  │     │  ├─ kotlin
+│  │  │     │  │  │  │     │  │  └─ com
+│  │  │     │  │  │  │     │  │     └─ mr
+│  │  │     │  │  │  │     │  │        └─ flutter
+│  │  │     │  │  │  │     │  │           └─ plugin
+│  │  │     │  │  │  │     │  │              └─ filepicker
+│  │  │     │  │  │  │     │  │                 └─ file_picker_example
+│  │  │     │  │  │  │     │  │                    └─ MainActivity.kt
+│  │  │     │  │  │  │     │  └─ res
+│  │  │     │  │  │  │     │     ├─ drawable
+│  │  │     │  │  │  │     │     │  └─ launch_background.xml
+│  │  │     │  │  │  │     │     ├─ drawable-v21
+│  │  │     │  │  │  │     │     │  └─ launch_background.xml
+│  │  │     │  │  │  │     │     ├─ mipmap-hdpi
+│  │  │     │  │  │  │     │     │  └─ ic_launcher.png
+│  │  │     │  │  │  │     │     ├─ mipmap-mdpi
+│  │  │     │  │  │  │     │     │  └─ ic_launcher.png
+│  │  │     │  │  │  │     │     ├─ mipmap-xhdpi
+│  │  │     │  │  │  │     │     │  └─ ic_launcher.png
+│  │  │     │  │  │  │     │     ├─ mipmap-xxhdpi
+│  │  │     │  │  │  │     │     │  └─ ic_launcher.png
+│  │  │     │  │  │  │     │     ├─ mipmap-xxxhdpi
+│  │  │     │  │  │  │     │     │  └─ ic_launcher.png
+│  │  │     │  │  │  │     │     ├─ values
+│  │  │     │  │  │  │     │     │  └─ styles.xml
+│  │  │     │  │  │  │     │     └─ values-night
+│  │  │     │  │  │  │     │        └─ styles.xml
+│  │  │     │  │  │  │     └─ profile
+│  │  │     │  │  │  │        └─ AndroidManifest.xml
+│  │  │     │  │  │  ├─ build.gradle
+│  │  │     │  │  │  ├─ gradle
+│  │  │     │  │  │  │  └─ wrapper
+│  │  │     │  │  │  │     └─ gradle-wrapper.properties
+│  │  │     │  │  │  ├─ gradle.properties
+│  │  │     │  │  │  └─ settings.gradle
+│  │  │     │  │  ├─ ios
+│  │  │     │  │  │  ├─ Flutter
+│  │  │     │  │  │  │  ├─ AppFrameworkInfo.plist
+│  │  │     │  │  │  │  ├─ Debug.xcconfig
+│  │  │     │  │  │  │  └─ Release.xcconfig
+│  │  │     │  │  │  ├─ gpxgenerator_path.gpx
+│  │  │     │  │  │  ├─ Runner
+│  │  │     │  │  │  │  ├─ AppDelegate.h
+│  │  │     │  │  │  │  ├─ AppDelegate.m
+│  │  │     │  │  │  │  ├─ AppDelegate.swift
+│  │  │     │  │  │  │  ├─ Assets.xcassets
+│  │  │     │  │  │  │  │  ├─ AppIcon.appiconset
+│  │  │     │  │  │  │  │  │  ├─ Contents.json
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-1024x1024@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@2x.png
+│  │  │     │  │  │  │  │  │  └─ Icon-App-83.5x83.5@2x.png
+│  │  │     │  │  │  │  │  └─ LaunchImage.imageset
+│  │  │     │  │  │  │  │     ├─ Contents.json
+│  │  │     │  │  │  │  │     ├─ LaunchImage.png
+│  │  │     │  │  │  │  │     ├─ LaunchImage@2x.png
+│  │  │     │  │  │  │  │     ├─ LaunchImage@3x.png
+│  │  │     │  │  │  │  │     └─ README.md
+│  │  │     │  │  │  │  ├─ Base.lproj
+│  │  │     │  │  │  │  │  ├─ LaunchScreen.storyboard
+│  │  │     │  │  │  │  │  └─ Main.storyboard
+│  │  │     │  │  │  │  ├─ File.swift
+│  │  │     │  │  │  │  ├─ Info.plist
+│  │  │     │  │  │  │  ├─ main.m
+│  │  │     │  │  │  │  └─ Runner-Bridging-Header.h
+│  │  │     │  │  │  ├─ Runner.xcodeproj
+│  │  │     │  │  │  │  ├─ project.pbxproj
+│  │  │     │  │  │  │  ├─ project.xcworkspace
+│  │  │     │  │  │  │  │  ├─ contents.xcworkspacedata
+│  │  │     │  │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │  │     ├─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  │  │     └─ WorkspaceSettings.xcsettings
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     └─ xcschemes
+│  │  │     │  │  │  │        └─ Runner.xcscheme
+│  │  │     │  │  │  └─ Runner.xcworkspace
+│  │  │     │  │  │     ├─ contents.xcworkspacedata
+│  │  │     │  │  │     └─ xcshareddata
+│  │  │     │  │  │        ├─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │        └─ WorkspaceSettings.xcsettings
+│  │  │     │  │  ├─ lib
+│  │  │     │  │  │  ├─ main.dart
+│  │  │     │  │  │  ├─ main_desktop.dart
+│  │  │     │  │  │  └─ src
+│  │  │     │  │  │     └─ file_picker_demo.dart
+│  │  │     │  │  ├─ linux
+│  │  │     │  │  │  ├─ CMakeLists.txt
+│  │  │     │  │  │  ├─ flutter
+│  │  │     │  │  │  │  ├─ CMakeLists.txt
+│  │  │     │  │  │  │  ├─ generated_plugins.cmake
+│  │  │     │  │  │  │  ├─ generated_plugin_registrant.cc
+│  │  │     │  │  │  │  └─ generated_plugin_registrant.h
+│  │  │     │  │  │  ├─ main.cc
+│  │  │     │  │  │  ├─ my_application.cc
+│  │  │     │  │  │  └─ my_application.h
+│  │  │     │  │  ├─ macos
+│  │  │     │  │  │  ├─ Flutter
+│  │  │     │  │  │  │  ├─ Flutter-Debug.xcconfig
+│  │  │     │  │  │  │  └─ Flutter-Release.xcconfig
+│  │  │     │  │  │  ├─ Runner
+│  │  │     │  │  │  │  ├─ AppDelegate.swift
+│  │  │     │  │  │  │  ├─ Assets.xcassets
+│  │  │     │  │  │  │  │  └─ AppIcon.appiconset
+│  │  │     │  │  │  │  │     ├─ app_icon_1024.png
+│  │  │     │  │  │  │  │     ├─ app_icon_128.png
+│  │  │     │  │  │  │  │     ├─ app_icon_16.png
+│  │  │     │  │  │  │  │     ├─ app_icon_256.png
+│  │  │     │  │  │  │  │     ├─ app_icon_32.png
+│  │  │     │  │  │  │  │     ├─ app_icon_512.png
+│  │  │     │  │  │  │  │     ├─ app_icon_64.png
+│  │  │     │  │  │  │  │     └─ Contents.json
+│  │  │     │  │  │  │  ├─ Base.lproj
+│  │  │     │  │  │  │  │  └─ MainMenu.xib
+│  │  │     │  │  │  │  ├─ Configs
+│  │  │     │  │  │  │  │  ├─ AppInfo.xcconfig
+│  │  │     │  │  │  │  │  ├─ Debug.xcconfig
+│  │  │     │  │  │  │  │  ├─ Release.xcconfig
+│  │  │     │  │  │  │  │  └─ Warnings.xcconfig
+│  │  │     │  │  │  │  ├─ DebugProfile.entitlements
+│  │  │     │  │  │  │  ├─ Info.plist
+│  │  │     │  │  │  │  ├─ MainFlutterWindow.swift
+│  │  │     │  │  │  │  └─ Release.entitlements
+│  │  │     │  │  │  ├─ Runner.xcodeproj
+│  │  │     │  │  │  │  ├─ project.pbxproj
+│  │  │     │  │  │  │  ├─ project.xcworkspace
+│  │  │     │  │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │  │     └─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     └─ xcschemes
+│  │  │     │  │  │  │        └─ Runner.xcscheme
+│  │  │     │  │  │  ├─ Runner.xcworkspace
+│  │  │     │  │  │  │  ├─ contents.xcworkspacedata
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     └─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  └─ RunnerTests
+│  │  │     │  │  │     └─ RunnerTests.swift
+│  │  │     │  │  ├─ pubspec.yaml
+│  │  │     │  │  ├─ README.md
+│  │  │     │  │  ├─ screenshots
+│  │  │     │  │  │  ├─ example_android.gif
+│  │  │     │  │  │  ├─ example_ios.gif
+│  │  │     │  │  │  ├─ example_linux.gif
+│  │  │     │  │  │  ├─ example_macos.gif
+│  │  │     │  │  │  └─ example_windows.gif
+│  │  │     │  │  ├─ web
+│  │  │     │  │  │  ├─ favicon.png
+│  │  │     │  │  │  ├─ icons
+│  │  │     │  │  │  │  ├─ Icon-192.png
+│  │  │     │  │  │  │  └─ Icon-512.png
+│  │  │     │  │  │  ├─ index.html
+│  │  │     │  │  │  └─ manifest.json
+│  │  │     │  │  └─ windows
+│  │  │     │  │     ├─ CMakeLists.txt
+│  │  │     │  │     ├─ flutter
+│  │  │     │  │     │  ├─ CMakeLists.txt
+│  │  │     │  │     │  ├─ generated_plugins.cmake
+│  │  │     │  │     │  ├─ generated_plugin_registrant.cc
+│  │  │     │  │     │  └─ generated_plugin_registrant.h
+│  │  │     │  │     └─ runner
+│  │  │     │  │        ├─ CMakeLists.txt
+│  │  │     │  │        ├─ flutter_window.cpp
+│  │  │     │  │        ├─ flutter_window.h
+│  │  │     │  │        ├─ main.cpp
+│  │  │     │  │        ├─ resource.h
+│  │  │     │  │        ├─ resources
+│  │  │     │  │        │  └─ app_icon.ico
+│  │  │     │  │        ├─ runner.exe.manifest
+│  │  │     │  │        ├─ Runner.rc
+│  │  │     │  │        ├─ utils.cpp
+│  │  │     │  │        ├─ utils.h
+│  │  │     │  │        ├─ win32_window.cpp
+│  │  │     │  │        └─ win32_window.h
+│  │  │     │  ├─ ios
+│  │  │     │  │  ├─ file_picker
+│  │  │     │  │  │  ├─ Package.resolved
+│  │  │     │  │  │  ├─ Package.swift
+│  │  │     │  │  │  └─ Sources
+│  │  │     │  │  │     └─ file_picker
+│  │  │     │  │  │        ├─ FileInfo.m
+│  │  │     │  │  │        ├─ FilePickerPlugin.m
+│  │  │     │  │  │        ├─ FileUtils.m
+│  │  │     │  │  │        ├─ ImageUtils.m
+│  │  │     │  │  │        ├─ include
+│  │  │     │  │  │        │  ├─ file_picker
+│  │  │     │  │  │        │  │  ├─ FileInfo.h
+│  │  │     │  │  │        │  │  ├─ FilePickerPlugin.h
+│  │  │     │  │  │        │  │  ├─ FileUtils.h
+│  │  │     │  │  │        │  │  └─ ImageUtils.h
+│  │  │     │  │  │        │  ├─ file_picker-umbrella.h
+│  │  │     │  │  │        │  └─ file_picker.modulemap
+│  │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+│  │  │     │  │  └─ file_picker.podspec
+│  │  │     │  ├─ lib
+│  │  │     │  │  ├─ file_picker.dart
+│  │  │     │  │  ├─ src
+│  │  │     │  │  │  ├─ exceptions.dart
+│  │  │     │  │  │  ├─ file_picker.dart
+│  │  │     │  │  │  ├─ file_picker_io.dart
+│  │  │     │  │  │  ├─ file_picker_macos.dart
+│  │  │     │  │  │  ├─ file_picker_result.dart
+│  │  │     │  │  │  ├─ linux
+│  │  │     │  │  │  │  ├─ dialog_handler.dart
+│  │  │     │  │  │  │  ├─ file_picker_linux.dart
+│  │  │     │  │  │  │  ├─ kdialog_handler.dart
+│  │  │     │  │  │  │  └─ qarma_and_zenity_handler.dart
+│  │  │     │  │  │  ├─ platform_file.dart
+│  │  │     │  │  │  ├─ utils.dart
+│  │  │     │  │  │  └─ windows
+│  │  │     │  │  │     ├─ file_picker_windows.dart
+│  │  │     │  │  │     ├─ file_picker_windows_ffi_types.dart
+│  │  │     │  │  │     └─ file_picker_windows_stub.dart
+│  │  │     │  │  └─ _internal
+│  │  │     │  │     └─ file_picker_web.dart
+│  │  │     │  ├─ LICENSE
+│  │  │     │  ├─ macos
+│  │  │     │  │  ├─ file_picker
+│  │  │     │  │  │  ├─ Package.swift
+│  │  │     │  │  │  └─ Sources
+│  │  │     │  │  │     └─ file_picker
+│  │  │     │  │  │        ├─ FilePickerPlugin.swift
+│  │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+│  │  │     │  │  └─ file_picker.podspec
+│  │  │     │  ├─ pubspec.yaml
+│  │  │     │  ├─ README.md
+│  │  │     │  └─ test
+│  │  │     │     ├─ common.dart
+│  │  │     │     ├─ file_picker_macos_test.dart
+│  │  │     │     ├─ file_picker_utils_test.dart
+│  │  │     │     ├─ file_picker_windows_test.dart
+│  │  │     │     ├─ linux
+│  │  │     │     │  ├─ dialog_handler_test.dart
+│  │  │     │     │  ├─ kdialog_handler_test.dart
+│  │  │     │     │  └─ qarma_and_zenity_handler_test.dart
+│  │  │     │     └─ test_files
+│  │  │     │        ├─ franz-michael-schneeberger-unsplash.jpg
+│  │  │     │        ├─ test.pdf
+│  │  │     │        └─ test.yml
+│  │  │     ├─ geolocator_linux
+│  │  │     │  ├─ analysis_options.yaml
+│  │  │     │  ├─ AUTHORS
+│  │  │     │  ├─ CHANGELOG.md
+│  │  │     │  ├─ example
+│  │  │     │  │  ├─ analysis_options.yaml
+│  │  │     │  │  ├─ lib
+│  │  │     │  │  │  └─ main.dart
+│  │  │     │  │  ├─ linux
+│  │  │     │  │  │  ├─ CMakeLists.txt
+│  │  │     │  │  │  ├─ flutter
+│  │  │     │  │  │  │  ├─ CMakeLists.txt
+│  │  │     │  │  │  │  ├─ generated_plugins.cmake
+│  │  │     │  │  │  │  ├─ generated_plugin_registrant.cc
+│  │  │     │  │  │  │  └─ generated_plugin_registrant.h
+│  │  │     │  │  │  ├─ main.cc
+│  │  │     │  │  │  ├─ my_application.cc
+│  │  │     │  │  │  └─ my_application.h
+│  │  │     │  │  ├─ pubspec.yaml
+│  │  │     │  │  ├─ README.md
+│  │  │     │  │  └─ res
+│  │  │     │  │     └─ images
+│  │  │     │  │        ├─ baseflow_logo_def_light-02.png
+│  │  │     │  │        ├─ poweredByBaseflowLogoLight.png
+│  │  │     │  │        ├─ poweredByBaseflowLogoLight@2x.png
+│  │  │     │  │        ├─ poweredByBaseflowLogoLight@3x.png
+│  │  │     │  │        └─ poweredByBaseflowLogoLight_2020-06-23.zip
+│  │  │     │  ├─ lib
+│  │  │     │  │  ├─ geolocator_linux.dart
+│  │  │     │  │  └─ src
+│  │  │     │  │     ├─ geoclue_x.dart
+│  │  │     │  │     ├─ geolocator_gnome.dart
+│  │  │     │  │     └─ geolocator_linux.dart
 │  │  │     │  ├─ LICENSE
 │  │  │     │  ├─ pubspec.yaml
 │  │  │     │  ├─ README.md
 │  │  │     │  └─ test
-│  │  │     │     ├─ notifications_manager_test.dart
-│  │  │     │     ├─ notifications_manager_test.mocks.dart
-│  │  │     │     ├─ posix_test.dart
-│  │  │     │     ├─ storage_test.dart
-│  │  │     │     └─ storage_test.mocks.dart
+│  │  │     │     ├─ geoclue_x_test.dart
+│  │  │     │     ├─ geolocator_gnome_test.dart
+│  │  │     │     ├─ geolocator_gnome_test.mocks.dart
+│  │  │     │     ├─ geolocator_linux_test.dart
+│  │  │     │     └─ geolocator_linux_test.mocks.dart
+│  │  │     ├─ package_info_plus
+│  │  │     │  ├─ android
+│  │  │     │  │  ├─ build.gradle
+│  │  │     │  │  ├─ gradle
+│  │  │     │  │  │  └─ wrapper
+│  │  │     │  │  │     └─ gradle-wrapper.properties
+│  │  │     │  │  ├─ gradle.properties
+│  │  │     │  │  ├─ settings.gradle
+│  │  │     │  │  └─ src
+│  │  │     │  │     └─ main
+│  │  │     │  │        ├─ AndroidManifest.xml
+│  │  │     │  │        └─ kotlin
+│  │  │     │  │           └─ dev
+│  │  │     │  │              └─ fluttercommunity
+│  │  │     │  │                 └─ plus
+│  │  │     │  │                    └─ packageinfo
+│  │  │     │  │                       └─ PackageInfoPlugin.kt
+│  │  │     │  ├─ CHANGELOG.md
+│  │  │     │  ├─ example
+│  │  │     │  │  ├─ analysis_options.yaml
+│  │  │     │  │  ├─ android
+│  │  │     │  │  │  ├─ app
+│  │  │     │  │  │  │  ├─ build.gradle
+│  │  │     │  │  │  │  ├─ gradle
+│  │  │     │  │  │  │  │  └─ wrapper
+│  │  │     │  │  │  │  │     └─ gradle-wrapper.properties
+│  │  │     │  │  │  │  └─ src
+│  │  │     │  │  │  │     ├─ androidTest
+│  │  │     │  │  │  │     │  └─ java
+│  │  │     │  │  │  │     │     └─ io
+│  │  │     │  │  │  │     │        └─ flutter
+│  │  │     │  │  │  │     │           └─ plugins
+│  │  │     │  │  │  │     │              └─ packageinfoexample
+│  │  │     │  │  │  │     │                 ├─ EmbedderV1ActivityTest.java
+│  │  │     │  │  │  │     │                 └─ MainActivityTest.java
+│  │  │     │  │  │  │     └─ main
+│  │  │     │  │  │  │        ├─ AndroidManifest.xml
+│  │  │     │  │  │  │        ├─ java
+│  │  │     │  │  │  │        │  └─ io
+│  │  │     │  │  │  │        │     └─ flutter
+│  │  │     │  │  │  │        │        └─ plugins
+│  │  │     │  │  │  │        └─ res
+│  │  │     │  │  │  │           ├─ mipmap-hdpi
+│  │  │     │  │  │  │           │  └─ ic_launcher.png
+│  │  │     │  │  │  │           ├─ mipmap-mdpi
+│  │  │     │  │  │  │           │  └─ ic_launcher.png
+│  │  │     │  │  │  │           ├─ mipmap-xhdpi
+│  │  │     │  │  │  │           │  └─ ic_launcher.png
+│  │  │     │  │  │  │           ├─ mipmap-xxhdpi
+│  │  │     │  │  │  │           │  └─ ic_launcher.png
+│  │  │     │  │  │  │           └─ mipmap-xxxhdpi
+│  │  │     │  │  │  │              └─ ic_launcher.png
+│  │  │     │  │  │  ├─ build.gradle
+│  │  │     │  │  │  ├─ gradle
+│  │  │     │  │  │  │  └─ wrapper
+│  │  │     │  │  │  │     └─ gradle-wrapper.properties
+│  │  │     │  │  │  ├─ gradle.properties
+│  │  │     │  │  │  └─ settings.gradle
+│  │  │     │  │  ├─ build.yaml
+│  │  │     │  │  ├─ integration_test
+│  │  │     │  │  │  ├─ driver.dart
+│  │  │     │  │  │  ├─ package_info_plus_test.dart
+│  │  │     │  │  │  ├─ package_info_plus_web_test.dart
+│  │  │     │  │  │  └─ package_info_plus_web_test.mocks.dart
+│  │  │     │  │  ├─ ios
+│  │  │     │  │  │  ├─ Flutter
+│  │  │     │  │  │  │  ├─ AppFrameworkInfo.plist
+│  │  │     │  │  │  │  ├─ Debug.xcconfig
+│  │  │     │  │  │  │  └─ Release.xcconfig
+│  │  │     │  │  │  ├─ Runner
+│  │  │     │  │  │  │  ├─ AppDelegate.swift
+│  │  │     │  │  │  │  ├─ Assets.xcassets
+│  │  │     │  │  │  │  │  ├─ AppIcon.appiconset
+│  │  │     │  │  │  │  │  │  ├─ Contents.json
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-1024x1024@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@2x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@3x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@1x.png
+│  │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@2x.png
+│  │  │     │  │  │  │  │  │  └─ Icon-App-83.5x83.5@2x.png
+│  │  │     │  │  │  │  │  └─ LaunchImage.imageset
+│  │  │     │  │  │  │  │     ├─ Contents.json
+│  │  │     │  │  │  │  │     ├─ LaunchImage.png
+│  │  │     │  │  │  │  │     ├─ LaunchImage@2x.png
+│  │  │     │  │  │  │  │     ├─ LaunchImage@3x.png
+│  │  │     │  │  │  │  │     └─ README.md
+│  │  │     │  │  │  │  ├─ Base.lproj
+│  │  │     │  │  │  │  │  ├─ LaunchScreen.storyboard
+│  │  │     │  │  │  │  │  └─ Main.storyboard
+│  │  │     │  │  │  │  ├─ Info.plist
+│  │  │     │  │  │  │  └─ Runner-Bridging-Header.h
+│  │  │     │  │  │  ├─ Runner.xcodeproj
+│  │  │     │  │  │  │  ├─ project.pbxproj
+│  │  │     │  │  │  │  ├─ project.xcworkspace
+│  │  │     │  │  │  │  │  ├─ contents.xcworkspacedata
+│  │  │     │  │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │  │     ├─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  │  │     └─ WorkspaceSettings.xcsettings
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     └─ xcschemes
+│  │  │     │  │  │  │        └─ Runner.xcscheme
+│  │  │     │  │  │  ├─ Runner.xcworkspace
+│  │  │     │  │  │  │  ├─ contents.xcworkspacedata
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     ├─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  │     └─ WorkspaceSettings.xcsettings
+│  │  │     │  │  │  └─ RunnerTests
+│  │  │     │  │  │     └─ RunnerTests.swift
+│  │  │     │  │  ├─ lib
+│  │  │     │  │  │  └─ main.dart
+│  │  │     │  │  ├─ linux
+│  │  │     │  │  │  ├─ CMakeLists.txt
+│  │  │     │  │  │  ├─ flutter
+│  │  │     │  │  │  │  └─ CMakeLists.txt
+│  │  │     │  │  │  ├─ main.cc
+│  │  │     │  │  │  ├─ my_application.cc
+│  │  │     │  │  │  └─ my_application.h
+│  │  │     │  │  ├─ macos
+│  │  │     │  │  │  ├─ Flutter
+│  │  │     │  │  │  │  ├─ Flutter-Debug.xcconfig
+│  │  │     │  │  │  │  └─ Flutter-Release.xcconfig
+│  │  │     │  │  │  ├─ Runner
+│  │  │     │  │  │  │  ├─ AppDelegate.swift
+│  │  │     │  │  │  │  ├─ Assets.xcassets
+│  │  │     │  │  │  │  │  └─ AppIcon.appiconset
+│  │  │     │  │  │  │  │     ├─ app_icon_1024.png
+│  │  │     │  │  │  │  │     ├─ app_icon_128.png
+│  │  │     │  │  │  │  │     ├─ app_icon_16.png
+│  │  │     │  │  │  │  │     ├─ app_icon_256.png
+│  │  │     │  │  │  │  │     ├─ app_icon_32.png
+│  │  │     │  │  │  │  │     ├─ app_icon_512.png
+│  │  │     │  │  │  │  │     ├─ app_icon_64.png
+│  │  │     │  │  │  │  │     └─ Contents.json
+│  │  │     │  │  │  │  ├─ Base.lproj
+│  │  │     │  │  │  │  │  └─ MainMenu.xib
+│  │  │     │  │  │  │  ├─ Configs
+│  │  │     │  │  │  │  │  ├─ AppInfo.xcconfig
+│  │  │     │  │  │  │  │  ├─ Debug.xcconfig
+│  │  │     │  │  │  │  │  ├─ Release.xcconfig
+│  │  │     │  │  │  │  │  └─ Warnings.xcconfig
+│  │  │     │  │  │  │  ├─ DebugProfile.entitlements
+│  │  │     │  │  │  │  ├─ Info.plist
+│  │  │     │  │  │  │  ├─ MainFlutterWindow.swift
+│  │  │     │  │  │  │  └─ Release.entitlements
+│  │  │     │  │  │  ├─ Runner.xcodeproj
+│  │  │     │  │  │  │  ├─ project.pbxproj
+│  │  │     │  │  │  │  ├─ project.xcworkspace
+│  │  │     │  │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │  │     └─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     └─ xcschemes
+│  │  │     │  │  │  │        └─ Runner.xcscheme
+│  │  │     │  │  │  ├─ Runner.xcworkspace
+│  │  │     │  │  │  │  ├─ contents.xcworkspacedata
+│  │  │     │  │  │  │  └─ xcshareddata
+│  │  │     │  │  │  │     └─ IDEWorkspaceChecks.plist
+│  │  │     │  │  │  └─ RunnerTests
+│  │  │     │  │  │     └─ RunnerTests.swift
+│  │  │     │  │  ├─ pubspec.yaml
+│  │  │     │  │  ├─ README.md
+│  │  │     │  │  ├─ web
+│  │  │     │  │  │  ├─ favicon.png
+│  │  │     │  │  │  ├─ icons
+│  │  │     │  │  │  │  ├─ Icon-192.png
+│  │  │     │  │  │  │  ├─ Icon-512.png
+│  │  │     │  │  │  │  ├─ Icon-maskable-192.png
+│  │  │     │  │  │  │  └─ Icon-maskable-512.png
+│  │  │     │  │  │  ├─ index.html
+│  │  │     │  │  │  └─ manifest.json
+│  │  │     │  │  └─ windows
+│  │  │     │  │     ├─ CMakeLists.txt
+│  │  │     │  │     ├─ flutter
+│  │  │     │  │     │  └─ CMakeLists.txt
+│  │  │     │  │     └─ runner
+│  │  │     │  │        ├─ CMakeLists.txt
+│  │  │     │  │        ├─ flutter_window.cpp
+│  │  │     │  │        ├─ flutter_window.h
+│  │  │     │  │        ├─ main.cpp
+│  │  │     │  │        ├─ resource.h
+│  │  │     │  │        ├─ resources
+│  │  │     │  │        │  └─ app_icon.ico
+│  │  │     │  │        ├─ runner.exe.manifest
+│  │  │     │  │        ├─ Runner.rc
+│  │  │     │  │        ├─ utils.cpp
+│  │  │     │  │        ├─ utils.h
+│  │  │     │  │        ├─ win32_window.cpp
+│  │  │     │  │        └─ win32_window.h
+│  │  │     │  ├─ ios
+│  │  │     │  │  ├─ package_info_plus
+│  │  │     │  │  │  ├─ Package.swift
+│  │  │     │  │  │  └─ Sources
+│  │  │     │  │  │     └─ package_info_plus
+│  │  │     │  │  │        ├─ FPPPackageInfoPlusPlugin.m
+│  │  │     │  │  │        ├─ include
+│  │  │     │  │  │        │  └─ package_info_plus
+│  │  │     │  │  │        │     └─ FPPPackageInfoPlusPlugin.h
+│  │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+│  │  │     │  │  └─ package_info_plus.podspec
+│  │  │     │  ├─ lib
+│  │  │     │  │  ├─ package_info_plus.dart
+│  │  │     │  │  └─ src
+│  │  │     │  │     ├─ file_attribute.dart
+│  │  │     │  │     ├─ file_version_info.dart
+│  │  │     │  │     ├─ package_info_plus_linux.dart
+│  │  │     │  │     ├─ package_info_plus_macos.dart
+│  │  │     │  │     ├─ package_info_plus_web.dart
+│  │  │     │  │     └─ package_info_plus_windows.dart
+│  │  │     │  ├─ LICENSE
+│  │  │     │  ├─ macos
+│  │  │     │  │  ├─ package_info_plus
+│  │  │     │  │  │  ├─ Package.swift
+│  │  │     │  │  │  └─ Sources
+│  │  │     │  │  │     └─ package_info_plus
+│  │  │     │  │  │        ├─ FPPPackageInfoPlusPlugin.m
+│  │  │     │  │  │        ├─ include
+│  │  │     │  │  │        │  └─ package_info_plus
+│  │  │     │  │  │        │     └─ FPPPackageInfoPlusPlugin.h
+│  │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+│  │  │     │  │  └─ package_info_plus.podspec
+│  │  │     │  ├─ pubspec.yaml
+│  │  │     │  ├─ README.md
+│  │  │     │  └─ test
+│  │  │     │     ├─ package_info_plus_linux_test.dart
+│  │  │     │     ├─ package_info_plus_windows_test.dart
+│  │  │     │     └─ package_info_test.dart
 │  │  │     ├─ path_provider_linux
 │  │  │     │  ├─ AUTHORS
 │  │  │     │  ├─ CHANGELOG.md
@@ -402,7 +928,6 @@ note_app
 │  │     └─ IDEWorkspaceChecks.plist
 │  └─ RunnerTests
 │     └─ RunnerTests.swift
-├─ project-tree.txt
 ├─ pubspec.lock
 ├─ pubspec.yaml
 ├─ README.md
@@ -423,6 +948,290 @@ note_app
    │  ├─ CMakeLists.txt
    │  ├─ ephemeral
    │  │  └─ .plugin_symlinks
+   │  │     ├─ file_picker
+   │  │     │  ├─ analysis_options.yaml
+   │  │     │  ├─ android
+   │  │     │  │  ├─ build.gradle
+   │  │     │  │  ├─ gradle
+   │  │     │  │  │  └─ wrapper
+   │  │     │  │  │     └─ gradle-wrapper.properties
+   │  │     │  │  ├─ gradle.properties
+   │  │     │  │  ├─ proguard-rules.pro
+   │  │     │  │  ├─ settings.gradle
+   │  │     │  │  └─ src
+   │  │     │  │     └─ main
+   │  │     │  │        ├─ AndroidManifest.xml
+   │  │     │  │        └─ kotlin
+   │  │     │  │           └─ com
+   │  │     │  │              └─ mr
+   │  │     │  │                 └─ flutter
+   │  │     │  │                    └─ plugin
+   │  │     │  │                       └─ filepicker
+   │  │     │  │                          ├─ FileInfo.kt
+   │  │     │  │                          ├─ FilePickerDelegate.kt
+   │  │     │  │                          ├─ FilePickerPlugin.kt
+   │  │     │  │                          ├─ FileUtils.kt
+   │  │     │  │                          └─ MethodResultWrapper.kt
+   │  │     │  ├─ CHANGELOG.md
+   │  │     │  ├─ CONTRIBUTING.md
+   │  │     │  ├─ example
+   │  │     │  │  ├─ analysis_options.yaml
+   │  │     │  │  ├─ android
+   │  │     │  │  │  ├─ app
+   │  │     │  │  │  │  ├─ build.gradle
+   │  │     │  │  │  │  └─ src
+   │  │     │  │  │  │     ├─ debug
+   │  │     │  │  │  │     │  └─ AndroidManifest.xml
+   │  │     │  │  │  │     ├─ main
+   │  │     │  │  │  │     │  ├─ AndroidManifest.xml
+   │  │     │  │  │  │     │  ├─ kotlin
+   │  │     │  │  │  │     │  │  └─ com
+   │  │     │  │  │  │     │  │     └─ mr
+   │  │     │  │  │  │     │  │        └─ flutter
+   │  │     │  │  │  │     │  │           └─ plugin
+   │  │     │  │  │  │     │  │              └─ filepicker
+   │  │     │  │  │  │     │  │                 └─ file_picker_example
+   │  │     │  │  │  │     │  │                    └─ MainActivity.kt
+   │  │     │  │  │  │     │  └─ res
+   │  │     │  │  │  │     │     ├─ drawable
+   │  │     │  │  │  │     │     │  └─ launch_background.xml
+   │  │     │  │  │  │     │     ├─ drawable-v21
+   │  │     │  │  │  │     │     │  └─ launch_background.xml
+   │  │     │  │  │  │     │     ├─ mipmap-hdpi
+   │  │     │  │  │  │     │     │  └─ ic_launcher.png
+   │  │     │  │  │  │     │     ├─ mipmap-mdpi
+   │  │     │  │  │  │     │     │  └─ ic_launcher.png
+   │  │     │  │  │  │     │     ├─ mipmap-xhdpi
+   │  │     │  │  │  │     │     │  └─ ic_launcher.png
+   │  │     │  │  │  │     │     ├─ mipmap-xxhdpi
+   │  │     │  │  │  │     │     │  └─ ic_launcher.png
+   │  │     │  │  │  │     │     ├─ mipmap-xxxhdpi
+   │  │     │  │  │  │     │     │  └─ ic_launcher.png
+   │  │     │  │  │  │     │     ├─ values
+   │  │     │  │  │  │     │     │  └─ styles.xml
+   │  │     │  │  │  │     │     └─ values-night
+   │  │     │  │  │  │     │        └─ styles.xml
+   │  │     │  │  │  │     └─ profile
+   │  │     │  │  │  │        └─ AndroidManifest.xml
+   │  │     │  │  │  ├─ build.gradle
+   │  │     │  │  │  ├─ gradle
+   │  │     │  │  │  │  └─ wrapper
+   │  │     │  │  │  │     └─ gradle-wrapper.properties
+   │  │     │  │  │  ├─ gradle.properties
+   │  │     │  │  │  └─ settings.gradle
+   │  │     │  │  ├─ ios
+   │  │     │  │  │  ├─ Flutter
+   │  │     │  │  │  │  ├─ AppFrameworkInfo.plist
+   │  │     │  │  │  │  ├─ Debug.xcconfig
+   │  │     │  │  │  │  └─ Release.xcconfig
+   │  │     │  │  │  ├─ gpxgenerator_path.gpx
+   │  │     │  │  │  ├─ Runner
+   │  │     │  │  │  │  ├─ AppDelegate.h
+   │  │     │  │  │  │  ├─ AppDelegate.m
+   │  │     │  │  │  │  ├─ AppDelegate.swift
+   │  │     │  │  │  │  ├─ Assets.xcassets
+   │  │     │  │  │  │  │  ├─ AppIcon.appiconset
+   │  │     │  │  │  │  │  │  ├─ Contents.json
+   │  │     │  │  │  │  │  │  ├─ Icon-App-1024x1024@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@2x.png
+   │  │     │  │  │  │  │  │  └─ Icon-App-83.5x83.5@2x.png
+   │  │     │  │  │  │  │  └─ LaunchImage.imageset
+   │  │     │  │  │  │  │     ├─ Contents.json
+   │  │     │  │  │  │  │     ├─ LaunchImage.png
+   │  │     │  │  │  │  │     ├─ LaunchImage@2x.png
+   │  │     │  │  │  │  │     ├─ LaunchImage@3x.png
+   │  │     │  │  │  │  │     └─ README.md
+   │  │     │  │  │  │  ├─ Base.lproj
+   │  │     │  │  │  │  │  ├─ LaunchScreen.storyboard
+   │  │     │  │  │  │  │  └─ Main.storyboard
+   │  │     │  │  │  │  ├─ File.swift
+   │  │     │  │  │  │  ├─ Info.plist
+   │  │     │  │  │  │  ├─ main.m
+   │  │     │  │  │  │  └─ Runner-Bridging-Header.h
+   │  │     │  │  │  ├─ Runner.xcodeproj
+   │  │     │  │  │  │  ├─ project.pbxproj
+   │  │     │  │  │  │  ├─ project.xcworkspace
+   │  │     │  │  │  │  │  ├─ contents.xcworkspacedata
+   │  │     │  │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │  │     ├─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  │  │     └─ WorkspaceSettings.xcsettings
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     └─ xcschemes
+   │  │     │  │  │  │        └─ Runner.xcscheme
+   │  │     │  │  │  └─ Runner.xcworkspace
+   │  │     │  │  │     ├─ contents.xcworkspacedata
+   │  │     │  │  │     └─ xcshareddata
+   │  │     │  │  │        ├─ IDEWorkspaceChecks.plist
+   │  │     │  │  │        └─ WorkspaceSettings.xcsettings
+   │  │     │  │  ├─ lib
+   │  │     │  │  │  ├─ main.dart
+   │  │     │  │  │  ├─ main_desktop.dart
+   │  │     │  │  │  └─ src
+   │  │     │  │  │     └─ file_picker_demo.dart
+   │  │     │  │  ├─ linux
+   │  │     │  │  │  ├─ CMakeLists.txt
+   │  │     │  │  │  ├─ flutter
+   │  │     │  │  │  │  ├─ CMakeLists.txt
+   │  │     │  │  │  │  ├─ generated_plugins.cmake
+   │  │     │  │  │  │  ├─ generated_plugin_registrant.cc
+   │  │     │  │  │  │  └─ generated_plugin_registrant.h
+   │  │     │  │  │  ├─ main.cc
+   │  │     │  │  │  ├─ my_application.cc
+   │  │     │  │  │  └─ my_application.h
+   │  │     │  │  ├─ macos
+   │  │     │  │  │  ├─ Flutter
+   │  │     │  │  │  │  ├─ Flutter-Debug.xcconfig
+   │  │     │  │  │  │  └─ Flutter-Release.xcconfig
+   │  │     │  │  │  ├─ Runner
+   │  │     │  │  │  │  ├─ AppDelegate.swift
+   │  │     │  │  │  │  ├─ Assets.xcassets
+   │  │     │  │  │  │  │  └─ AppIcon.appiconset
+   │  │     │  │  │  │  │     ├─ app_icon_1024.png
+   │  │     │  │  │  │  │     ├─ app_icon_128.png
+   │  │     │  │  │  │  │     ├─ app_icon_16.png
+   │  │     │  │  │  │  │     ├─ app_icon_256.png
+   │  │     │  │  │  │  │     ├─ app_icon_32.png
+   │  │     │  │  │  │  │     ├─ app_icon_512.png
+   │  │     │  │  │  │  │     ├─ app_icon_64.png
+   │  │     │  │  │  │  │     └─ Contents.json
+   │  │     │  │  │  │  ├─ Base.lproj
+   │  │     │  │  │  │  │  └─ MainMenu.xib
+   │  │     │  │  │  │  ├─ Configs
+   │  │     │  │  │  │  │  ├─ AppInfo.xcconfig
+   │  │     │  │  │  │  │  ├─ Debug.xcconfig
+   │  │     │  │  │  │  │  ├─ Release.xcconfig
+   │  │     │  │  │  │  │  └─ Warnings.xcconfig
+   │  │     │  │  │  │  ├─ DebugProfile.entitlements
+   │  │     │  │  │  │  ├─ Info.plist
+   │  │     │  │  │  │  ├─ MainFlutterWindow.swift
+   │  │     │  │  │  │  └─ Release.entitlements
+   │  │     │  │  │  ├─ Runner.xcodeproj
+   │  │     │  │  │  │  ├─ project.pbxproj
+   │  │     │  │  │  │  ├─ project.xcworkspace
+   │  │     │  │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │  │     └─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     └─ xcschemes
+   │  │     │  │  │  │        └─ Runner.xcscheme
+   │  │     │  │  │  ├─ Runner.xcworkspace
+   │  │     │  │  │  │  ├─ contents.xcworkspacedata
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     └─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  └─ RunnerTests
+   │  │     │  │  │     └─ RunnerTests.swift
+   │  │     │  │  ├─ pubspec.yaml
+   │  │     │  │  ├─ README.md
+   │  │     │  │  ├─ screenshots
+   │  │     │  │  │  ├─ example_android.gif
+   │  │     │  │  │  ├─ example_ios.gif
+   │  │     │  │  │  ├─ example_linux.gif
+   │  │     │  │  │  ├─ example_macos.gif
+   │  │     │  │  │  └─ example_windows.gif
+   │  │     │  │  ├─ web
+   │  │     │  │  │  ├─ favicon.png
+   │  │     │  │  │  ├─ icons
+   │  │     │  │  │  │  ├─ Icon-192.png
+   │  │     │  │  │  │  └─ Icon-512.png
+   │  │     │  │  │  ├─ index.html
+   │  │     │  │  │  └─ manifest.json
+   │  │     │  │  └─ windows
+   │  │     │  │     ├─ CMakeLists.txt
+   │  │     │  │     ├─ flutter
+   │  │     │  │     │  ├─ CMakeLists.txt
+   │  │     │  │     │  ├─ generated_plugins.cmake
+   │  │     │  │     │  ├─ generated_plugin_registrant.cc
+   │  │     │  │     │  └─ generated_plugin_registrant.h
+   │  │     │  │     └─ runner
+   │  │     │  │        ├─ CMakeLists.txt
+   │  │     │  │        ├─ flutter_window.cpp
+   │  │     │  │        ├─ flutter_window.h
+   │  │     │  │        ├─ main.cpp
+   │  │     │  │        ├─ resource.h
+   │  │     │  │        ├─ resources
+   │  │     │  │        │  └─ app_icon.ico
+   │  │     │  │        ├─ runner.exe.manifest
+   │  │     │  │        ├─ Runner.rc
+   │  │     │  │        ├─ utils.cpp
+   │  │     │  │        ├─ utils.h
+   │  │     │  │        ├─ win32_window.cpp
+   │  │     │  │        └─ win32_window.h
+   │  │     │  ├─ ios
+   │  │     │  │  ├─ file_picker
+   │  │     │  │  │  ├─ Package.resolved
+   │  │     │  │  │  ├─ Package.swift
+   │  │     │  │  │  └─ Sources
+   │  │     │  │  │     └─ file_picker
+   │  │     │  │  │        ├─ FileInfo.m
+   │  │     │  │  │        ├─ FilePickerPlugin.m
+   │  │     │  │  │        ├─ FileUtils.m
+   │  │     │  │  │        ├─ ImageUtils.m
+   │  │     │  │  │        ├─ include
+   │  │     │  │  │        │  ├─ file_picker
+   │  │     │  │  │        │  │  ├─ FileInfo.h
+   │  │     │  │  │        │  │  ├─ FilePickerPlugin.h
+   │  │     │  │  │        │  │  ├─ FileUtils.h
+   │  │     │  │  │        │  │  └─ ImageUtils.h
+   │  │     │  │  │        │  ├─ file_picker-umbrella.h
+   │  │     │  │  │        │  └─ file_picker.modulemap
+   │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+   │  │     │  │  └─ file_picker.podspec
+   │  │     │  ├─ lib
+   │  │     │  │  ├─ file_picker.dart
+   │  │     │  │  ├─ src
+   │  │     │  │  │  ├─ exceptions.dart
+   │  │     │  │  │  ├─ file_picker.dart
+   │  │     │  │  │  ├─ file_picker_io.dart
+   │  │     │  │  │  ├─ file_picker_macos.dart
+   │  │     │  │  │  ├─ file_picker_result.dart
+   │  │     │  │  │  ├─ linux
+   │  │     │  │  │  │  ├─ dialog_handler.dart
+   │  │     │  │  │  │  ├─ file_picker_linux.dart
+   │  │     │  │  │  │  ├─ kdialog_handler.dart
+   │  │     │  │  │  │  └─ qarma_and_zenity_handler.dart
+   │  │     │  │  │  ├─ platform_file.dart
+   │  │     │  │  │  ├─ utils.dart
+   │  │     │  │  │  └─ windows
+   │  │     │  │  │     ├─ file_picker_windows.dart
+   │  │     │  │  │     ├─ file_picker_windows_ffi_types.dart
+   │  │     │  │  │     └─ file_picker_windows_stub.dart
+   │  │     │  │  └─ _internal
+   │  │     │  │     └─ file_picker_web.dart
+   │  │     │  ├─ LICENSE
+   │  │     │  ├─ macos
+   │  │     │  │  ├─ file_picker
+   │  │     │  │  │  ├─ Package.swift
+   │  │     │  │  │  └─ Sources
+   │  │     │  │  │     └─ file_picker
+   │  │     │  │  │        ├─ FilePickerPlugin.swift
+   │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+   │  │     │  │  └─ file_picker.podspec
+   │  │     │  ├─ pubspec.yaml
+   │  │     │  ├─ README.md
+   │  │     │  └─ test
+   │  │     │     ├─ common.dart
+   │  │     │     ├─ file_picker_macos_test.dart
+   │  │     │     ├─ file_picker_utils_test.dart
+   │  │     │     ├─ file_picker_windows_test.dart
+   │  │     │     ├─ linux
+   │  │     │     │  ├─ dialog_handler_test.dart
+   │  │     │     │  ├─ kdialog_handler_test.dart
+   │  │     │     │  └─ qarma_and_zenity_handler_test.dart
+   │  │     │     └─ test_files
+   │  │     │        ├─ franz-michael-schneeberger-unsplash.jpg
+   │  │     │        ├─ test.pdf
+   │  │     │        └─ test.yml
    │  │     ├─ geolocator_windows
    │  │     │  ├─ analysis_options.yaml
    │  │     │  ├─ AUTHORS
@@ -472,6 +1281,240 @@ note_app
    │  │     │     └─ include
    │  │     │        └─ geolocator_windows
    │  │     │           └─ geolocator_windows.h
+   │  │     ├─ package_info_plus
+   │  │     │  ├─ android
+   │  │     │  │  ├─ build.gradle
+   │  │     │  │  ├─ gradle
+   │  │     │  │  │  └─ wrapper
+   │  │     │  │  │     └─ gradle-wrapper.properties
+   │  │     │  │  ├─ gradle.properties
+   │  │     │  │  ├─ settings.gradle
+   │  │     │  │  └─ src
+   │  │     │  │     └─ main
+   │  │     │  │        ├─ AndroidManifest.xml
+   │  │     │  │        └─ kotlin
+   │  │     │  │           └─ dev
+   │  │     │  │              └─ fluttercommunity
+   │  │     │  │                 └─ plus
+   │  │     │  │                    └─ packageinfo
+   │  │     │  │                       └─ PackageInfoPlugin.kt
+   │  │     │  ├─ CHANGELOG.md
+   │  │     │  ├─ example
+   │  │     │  │  ├─ analysis_options.yaml
+   │  │     │  │  ├─ android
+   │  │     │  │  │  ├─ app
+   │  │     │  │  │  │  ├─ build.gradle
+   │  │     │  │  │  │  ├─ gradle
+   │  │     │  │  │  │  │  └─ wrapper
+   │  │     │  │  │  │  │     └─ gradle-wrapper.properties
+   │  │     │  │  │  │  └─ src
+   │  │     │  │  │  │     ├─ androidTest
+   │  │     │  │  │  │     │  └─ java
+   │  │     │  │  │  │     │     └─ io
+   │  │     │  │  │  │     │        └─ flutter
+   │  │     │  │  │  │     │           └─ plugins
+   │  │     │  │  │  │     │              └─ packageinfoexample
+   │  │     │  │  │  │     │                 ├─ EmbedderV1ActivityTest.java
+   │  │     │  │  │  │     │                 └─ MainActivityTest.java
+   │  │     │  │  │  │     └─ main
+   │  │     │  │  │  │        ├─ AndroidManifest.xml
+   │  │     │  │  │  │        ├─ java
+   │  │     │  │  │  │        │  └─ io
+   │  │     │  │  │  │        │     └─ flutter
+   │  │     │  │  │  │        │        └─ plugins
+   │  │     │  │  │  │        └─ res
+   │  │     │  │  │  │           ├─ mipmap-hdpi
+   │  │     │  │  │  │           │  └─ ic_launcher.png
+   │  │     │  │  │  │           ├─ mipmap-mdpi
+   │  │     │  │  │  │           │  └─ ic_launcher.png
+   │  │     │  │  │  │           ├─ mipmap-xhdpi
+   │  │     │  │  │  │           │  └─ ic_launcher.png
+   │  │     │  │  │  │           ├─ mipmap-xxhdpi
+   │  │     │  │  │  │           │  └─ ic_launcher.png
+   │  │     │  │  │  │           └─ mipmap-xxxhdpi
+   │  │     │  │  │  │              └─ ic_launcher.png
+   │  │     │  │  │  ├─ build.gradle
+   │  │     │  │  │  ├─ gradle
+   │  │     │  │  │  │  └─ wrapper
+   │  │     │  │  │  │     └─ gradle-wrapper.properties
+   │  │     │  │  │  ├─ gradle.properties
+   │  │     │  │  │  └─ settings.gradle
+   │  │     │  │  ├─ build.yaml
+   │  │     │  │  ├─ integration_test
+   │  │     │  │  │  ├─ driver.dart
+   │  │     │  │  │  ├─ package_info_plus_test.dart
+   │  │     │  │  │  ├─ package_info_plus_web_test.dart
+   │  │     │  │  │  └─ package_info_plus_web_test.mocks.dart
+   │  │     │  │  ├─ ios
+   │  │     │  │  │  ├─ Flutter
+   │  │     │  │  │  │  ├─ AppFrameworkInfo.plist
+   │  │     │  │  │  │  ├─ Debug.xcconfig
+   │  │     │  │  │  │  └─ Release.xcconfig
+   │  │     │  │  │  ├─ Runner
+   │  │     │  │  │  │  ├─ AppDelegate.swift
+   │  │     │  │  │  │  ├─ Assets.xcassets
+   │  │     │  │  │  │  │  ├─ AppIcon.appiconset
+   │  │     │  │  │  │  │  │  ├─ Contents.json
+   │  │     │  │  │  │  │  │  ├─ Icon-App-1024x1024@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-20x20@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-29x29@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-40x40@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@2x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-60x60@3x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@1x.png
+   │  │     │  │  │  │  │  │  ├─ Icon-App-76x76@2x.png
+   │  │     │  │  │  │  │  │  └─ Icon-App-83.5x83.5@2x.png
+   │  │     │  │  │  │  │  └─ LaunchImage.imageset
+   │  │     │  │  │  │  │     ├─ Contents.json
+   │  │     │  │  │  │  │     ├─ LaunchImage.png
+   │  │     │  │  │  │  │     ├─ LaunchImage@2x.png
+   │  │     │  │  │  │  │     ├─ LaunchImage@3x.png
+   │  │     │  │  │  │  │     └─ README.md
+   │  │     │  │  │  │  ├─ Base.lproj
+   │  │     │  │  │  │  │  ├─ LaunchScreen.storyboard
+   │  │     │  │  │  │  │  └─ Main.storyboard
+   │  │     │  │  │  │  ├─ Info.plist
+   │  │     │  │  │  │  └─ Runner-Bridging-Header.h
+   │  │     │  │  │  ├─ Runner.xcodeproj
+   │  │     │  │  │  │  ├─ project.pbxproj
+   │  │     │  │  │  │  ├─ project.xcworkspace
+   │  │     │  │  │  │  │  ├─ contents.xcworkspacedata
+   │  │     │  │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │  │     ├─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  │  │     └─ WorkspaceSettings.xcsettings
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     └─ xcschemes
+   │  │     │  │  │  │        └─ Runner.xcscheme
+   │  │     │  │  │  ├─ Runner.xcworkspace
+   │  │     │  │  │  │  ├─ contents.xcworkspacedata
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     ├─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  │     └─ WorkspaceSettings.xcsettings
+   │  │     │  │  │  └─ RunnerTests
+   │  │     │  │  │     └─ RunnerTests.swift
+   │  │     │  │  ├─ lib
+   │  │     │  │  │  └─ main.dart
+   │  │     │  │  ├─ linux
+   │  │     │  │  │  ├─ CMakeLists.txt
+   │  │     │  │  │  ├─ flutter
+   │  │     │  │  │  │  └─ CMakeLists.txt
+   │  │     │  │  │  ├─ main.cc
+   │  │     │  │  │  ├─ my_application.cc
+   │  │     │  │  │  └─ my_application.h
+   │  │     │  │  ├─ macos
+   │  │     │  │  │  ├─ Flutter
+   │  │     │  │  │  │  ├─ Flutter-Debug.xcconfig
+   │  │     │  │  │  │  └─ Flutter-Release.xcconfig
+   │  │     │  │  │  ├─ Runner
+   │  │     │  │  │  │  ├─ AppDelegate.swift
+   │  │     │  │  │  │  ├─ Assets.xcassets
+   │  │     │  │  │  │  │  └─ AppIcon.appiconset
+   │  │     │  │  │  │  │     ├─ app_icon_1024.png
+   │  │     │  │  │  │  │     ├─ app_icon_128.png
+   │  │     │  │  │  │  │     ├─ app_icon_16.png
+   │  │     │  │  │  │  │     ├─ app_icon_256.png
+   │  │     │  │  │  │  │     ├─ app_icon_32.png
+   │  │     │  │  │  │  │     ├─ app_icon_512.png
+   │  │     │  │  │  │  │     ├─ app_icon_64.png
+   │  │     │  │  │  │  │     └─ Contents.json
+   │  │     │  │  │  │  ├─ Base.lproj
+   │  │     │  │  │  │  │  └─ MainMenu.xib
+   │  │     │  │  │  │  ├─ Configs
+   │  │     │  │  │  │  │  ├─ AppInfo.xcconfig
+   │  │     │  │  │  │  │  ├─ Debug.xcconfig
+   │  │     │  │  │  │  │  ├─ Release.xcconfig
+   │  │     │  │  │  │  │  └─ Warnings.xcconfig
+   │  │     │  │  │  │  ├─ DebugProfile.entitlements
+   │  │     │  │  │  │  ├─ Info.plist
+   │  │     │  │  │  │  ├─ MainFlutterWindow.swift
+   │  │     │  │  │  │  └─ Release.entitlements
+   │  │     │  │  │  ├─ Runner.xcodeproj
+   │  │     │  │  │  │  ├─ project.pbxproj
+   │  │     │  │  │  │  ├─ project.xcworkspace
+   │  │     │  │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │  │     └─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     └─ xcschemes
+   │  │     │  │  │  │        └─ Runner.xcscheme
+   │  │     │  │  │  ├─ Runner.xcworkspace
+   │  │     │  │  │  │  ├─ contents.xcworkspacedata
+   │  │     │  │  │  │  └─ xcshareddata
+   │  │     │  │  │  │     └─ IDEWorkspaceChecks.plist
+   │  │     │  │  │  └─ RunnerTests
+   │  │     │  │  │     └─ RunnerTests.swift
+   │  │     │  │  ├─ pubspec.yaml
+   │  │     │  │  ├─ README.md
+   │  │     │  │  ├─ web
+   │  │     │  │  │  ├─ favicon.png
+   │  │     │  │  │  ├─ icons
+   │  │     │  │  │  │  ├─ Icon-192.png
+   │  │     │  │  │  │  ├─ Icon-512.png
+   │  │     │  │  │  │  ├─ Icon-maskable-192.png
+   │  │     │  │  │  │  └─ Icon-maskable-512.png
+   │  │     │  │  │  ├─ index.html
+   │  │     │  │  │  └─ manifest.json
+   │  │     │  │  └─ windows
+   │  │     │  │     ├─ CMakeLists.txt
+   │  │     │  │     ├─ flutter
+   │  │     │  │     │  └─ CMakeLists.txt
+   │  │     │  │     └─ runner
+   │  │     │  │        ├─ CMakeLists.txt
+   │  │     │  │        ├─ flutter_window.cpp
+   │  │     │  │        ├─ flutter_window.h
+   │  │     │  │        ├─ main.cpp
+   │  │     │  │        ├─ resource.h
+   │  │     │  │        ├─ resources
+   │  │     │  │        │  └─ app_icon.ico
+   │  │     │  │        ├─ runner.exe.manifest
+   │  │     │  │        ├─ Runner.rc
+   │  │     │  │        ├─ utils.cpp
+   │  │     │  │        ├─ utils.h
+   │  │     │  │        ├─ win32_window.cpp
+   │  │     │  │        └─ win32_window.h
+   │  │     │  ├─ ios
+   │  │     │  │  ├─ package_info_plus
+   │  │     │  │  │  ├─ Package.swift
+   │  │     │  │  │  └─ Sources
+   │  │     │  │  │     └─ package_info_plus
+   │  │     │  │  │        ├─ FPPPackageInfoPlusPlugin.m
+   │  │     │  │  │        ├─ include
+   │  │     │  │  │        │  └─ package_info_plus
+   │  │     │  │  │        │     └─ FPPPackageInfoPlusPlugin.h
+   │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+   │  │     │  │  └─ package_info_plus.podspec
+   │  │     │  ├─ lib
+   │  │     │  │  ├─ package_info_plus.dart
+   │  │     │  │  └─ src
+   │  │     │  │     ├─ file_attribute.dart
+   │  │     │  │     ├─ file_version_info.dart
+   │  │     │  │     ├─ package_info_plus_linux.dart
+   │  │     │  │     ├─ package_info_plus_macos.dart
+   │  │     │  │     ├─ package_info_plus_web.dart
+   │  │     │  │     └─ package_info_plus_windows.dart
+   │  │     │  ├─ LICENSE
+   │  │     │  ├─ macos
+   │  │     │  │  ├─ package_info_plus
+   │  │     │  │  │  ├─ Package.swift
+   │  │     │  │  │  └─ Sources
+   │  │     │  │  │     └─ package_info_plus
+   │  │     │  │  │        ├─ FPPPackageInfoPlusPlugin.m
+   │  │     │  │  │        ├─ include
+   │  │     │  │  │        │  └─ package_info_plus
+   │  │     │  │  │        │     └─ FPPPackageInfoPlusPlugin.h
+   │  │     │  │  │        └─ PrivacyInfo.xcprivacy
+   │  │     │  │  └─ package_info_plus.podspec
+   │  │     │  ├─ pubspec.yaml
+   │  │     │  ├─ README.md
+   │  │     │  └─ test
+   │  │     │     ├─ package_info_plus_linux_test.dart
+   │  │     │     ├─ package_info_plus_windows_test.dart
+   │  │     │     └─ package_info_test.dart
    │  │     ├─ path_provider_windows
    │  │     │  ├─ AUTHORS
    │  │     │  ├─ CHANGELOG.md

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import '../models/user_model.dart';
 import '../services/database/database_service.dart';
 
@@ -8,9 +10,15 @@ class AuthController extends GetxController {
 
   final dbHelper = DatabaseHelper();
 
-  Future<void> register(String fullName, String email, String password) async {
+  String hashPassword(String password) {
+    final bytes = utf8.encode(password);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
+  Future<void> register(String fullName, String email, String password, String phone) async {
     _isLoading.value = true;
-    await Future.delayed(const Duration(milliseconds: 500)); // isteğe bağlı
+    await Future.delayed(const Duration(milliseconds: 500));
 
     final existingUser = await dbHelper.getUserByEmail(email);
     if (existingUser != null) {
@@ -18,23 +26,25 @@ class AuthController extends GetxController {
       throw 'Bu e-posta zaten kayıtlı';
     }
 
-    final newUser =
-        UserModel(fullName: fullName, email: email, password: password);
+    final hashedPassword = hashPassword(password);
+    final newUser = UserModel(fullName: fullName, email: email, password: hashedPassword, phone: phone);
     await dbHelper.registerUser(newUser);
 
     _isLoading.value = false;
   }
 
-  Future<void> login(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     _isLoading.value = true;
     await Future.delayed(const Duration(milliseconds: 500));
 
     final user = await dbHelper.getUserByEmail(email);
     _isLoading.value = false;
 
-    if (user == null || user.password != password) {
+    final hashedPassword = hashPassword(password);
+    if (user == null || user.password != hashedPassword) {
       throw 'Geçersiz giriş bilgileri';
     }
+    return user;
   }
 
   Future<void> resetPassword(String email) async {
