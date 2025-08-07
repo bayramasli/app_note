@@ -17,21 +17,18 @@ dependencies:
   path: ^1.8.3
 
   # 🧭 Konum servisleri
-  geolocator: ^10.1.0
-  geocoding: ^2.1.0
-
-  # 🔔 Bildirimler
-  flutter_local_notifications: ^16.3.1
+  geolocator: ^14.0.2
+  geocoding: ^4.0.0
 
   # 🧾 Dosya dışa aktarma
   pdf: ^3.10.6
   excel: ^4.0.2
-  file_picker: ^5.5.0
+  file_picker: ^10.2.1
 
   # 🌐 Çoklu dil desteği
   flutter_localizations:
     sdk: flutter
-  intl: 0.20.2 
+  intl: ^0.20.2 
 
   # 🎨 Tema ve ikonlar
   google_fonts: ^6.2.1
@@ -42,7 +39,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.1
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
