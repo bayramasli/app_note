@@ -1,0 +1,52 @@
+name: note_app
+description: Not alma ve yönetim uygulaması
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 🧠 State yönetimi
+  get: ^4.6.6
+
+  # 🗃️ Lokal veritabanı
+  sqflite: ^2.3.2
+  path: ^1.8.3
+
+  # 🧭 Konum servisleri
+  geolocator: ^10.1.0
+  geocoding: ^2.1.0
+
+  # 🔔 Bildirimler
+  flutter_local_notifications: ^16.3.1
+
+  # 🧾 Dosya dışa aktarma
+  pdf: ^3.10.6
+  excel: ^4.0.2
+  file_picker: ^5.5.0
+
+  # 🌐 Çoklu dil desteği
+  flutter_localizations:
+    sdk: flutter
+  intl: 0.20.2 
+
+  # 🎨 Tema ve ikonlar
+  google_fonts: ^6.2.1
+
+  # 🧰 Yardımcılar
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
