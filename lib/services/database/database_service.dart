@@ -1,26 +1,24 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../../models/user_model.dart';
-import '../../models/note_model.dart'; // Not modeli import edildi
+import '../../models/note_model.dart';
 
 class DatabaseHelper {
-  // Singleton yapısı: sadece bir örnek oluşturulur
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   factory DatabaseHelper() => _instance;
   DatabaseHelper._internal();
 
   static Database? _database;
 
-  /// Veritabanı nesnesine erişim
   Future<Database> get database async {
     if (_database != null) return _database!;
 
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'auth_app.db');
+    final path = join(dbPath, 'note_app.db');
 
     _database = await openDatabase(
       path,
-      version: 2, // versiyon 2 oldu çünkü notes tablosu eklendi
+      version: 3, // Yeni alanlar için versiyonu artırdık
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
     );
@@ -28,7 +26,6 @@ class DatabaseHelper {
     return _database!;
   }
 
-  /// Veritabanı ilk kez oluşturulduğunda çalışır
   Future<void> _createDB(Database db, int version) async {
     // Kullanıcı tablosu
     await db.execute('''
@@ -37,11 +34,11 @@ class DatabaseHelper {
         fullName TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        phone TEXT NOT NULL
+        phone TEXT
       )
     ''');
 
-    // Notlar tablosu
+    // Güncellenmiş Notlar tablosu (yeni alanlar eklendi)
     await db.execute('''
       CREATE TABLE notes(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -50,17 +47,19 @@ class DatabaseHelper {
         content TEXT NOT NULL,
         date TEXT NOT NULL,
         category TEXT,
+        reminderDate TEXT,
+        location TEXT,
+        imagePath TEXT,
+        imageUrl TEXT,
+        type TEXT DEFAULT 'personal',
         FOREIGN KEY(userId) REFERENCES users(id) ON DELETE CASCADE
       )
     ''');
   }
 
-  /// Veritabanı versiyonu artarsa çalışır
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 3) {
-      await db.execute('ALTER TABLE users ADD COLUMN phone TEXT NOT NULL DEFAULT ""');
-    }
     if (oldVersion < 2) {
+      // Versiyon 1'den 2'ye geçiş
       await db.execute('''
         CREATE TABLE notes(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -73,29 +72,32 @@ class DatabaseHelper {
         )
       ''');
     }
+
+    if (oldVersion < 3) {
+      // Versiyon 2'den 3'e geçiş (yeni alanlar eklendi)
+      await db.execute('ALTER TABLE notes ADD COLUMN reminderDate TEXT');
+      await db.execute('ALTER TABLE notes ADD COLUMN location TEXT');
+      await db.execute('ALTER TABLE notes ADD COLUMN imagePath TEXT');
+      await db.execute('ALTER TABLE notes ADD COLUMN imageUrl TEXT');
+      await db
+          .execute('ALTER TABLE notes ADD COLUMN type TEXT DEFAULT "personal"');
+    }
   }
 
   // ------------------------- KULLANICI İŞLEMLERİ -------------------------
 
-  /// Yeni kullanıcı ekler
   Future<int> registerUser(UserModel user) async {
     final db = await database;
     return await db.insert('users', user.toMap());
   }
 
-  /// Email'e göre kullanıcıyı getirir
   Future<UserModel?> getUserByEmail(String email) async {
     final db = await database;
     final result =
         await db.query('users', where: 'email = ?', whereArgs: [email]);
-
-    if (result.isNotEmpty) {
-      return UserModel.fromMap(result.first);
-    }
-    return null;
+    return result.isNotEmpty ? UserModel.fromMap(result.first) : null;
   }
 
-  /// Kullanıcı şifresini günceller
   Future<int> updateUserPassword(String email, String newPassword) async {
     final db = await database;
     return await db.update(
@@ -108,26 +110,41 @@ class DatabaseHelper {
 
   // -------------------------- NOT İŞLEMLERİ --------------------------
 
-  /// Yeni not ekler
   Future<int> addNote(NoteModel note) async {
     final db = await database;
     return await db.insert('notes', note.toMap());
   }
 
-  /// Belirli kullanıcıya ait notları getirir
-  Future<List<NoteModel>> getNotesByUserId(int userId) async {
+  Future<List<NoteModel>> getNotesByUserId(int userId,
+      {String? filterType, String? searchQuery}) async {
     final db = await database;
+
+    String whereClause = 'userId = ?';
+    List<Object> whereArgs = [userId];
+
+    // Filtreleme
+    if (filterType != null && filterType != 'all') {
+      whereClause += ' AND type = ?';
+      whereArgs.add(filterType);
+    }
+
+    // Arama
+    if (searchQuery != null && searchQuery.isNotEmpty) {
+      whereClause += ' AND (title LIKE ? OR content LIKE ?)';
+      whereArgs.add('%$searchQuery%');
+      whereArgs.add('%$searchQuery%');
+    }
+
     final result = await db.query(
       'notes',
-      where: 'userId = ?',
-      whereArgs: [userId],
+      where: whereClause,
+      whereArgs: whereArgs,
       orderBy: 'date DESC',
     );
 
     return result.map((map) => NoteModel.fromMap(map)).toList();
   }
 
-  /// Notu günceller
   Future<int> updateNote(NoteModel note) async {
     final db = await database;
     return await db.update(
@@ -138,7 +155,6 @@ class DatabaseHelper {
     );
   }
 
-  /// Notu siler
   Future<int> deleteNote(int id) async {
     final db = await database;
     return await db.delete(
@@ -148,9 +164,30 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<NoteModel>> getAllNotes() async {
+  Future<List<NoteModel>> getNotesByCategory(String category) async {
     final db = await database;
-    final result = await db.query('notes', orderBy: 'date DESC');
+    final result = await db.query(
+      'notes',
+      where: 'category = ?',
+      whereArgs: [category],
+      orderBy: 'date DESC',
+    );
+    return result.map((map) => NoteModel.fromMap(map)).toList();
+  }
+
+  // Diğer yardımcı metodlar
+  Future<void> close() async {
+    final db = await database;
+    await db.close();
+  }
+
+  Future<List<NoteModel>> getRecentNotes({int limit = 50}) async {
+    final db = await database;
+    final result = await db.query(
+      'notes',
+      orderBy: 'date DESC',
+      limit: limit,
+    );
     return result.map((map) => NoteModel.fromMap(map)).toList();
   }
 }
